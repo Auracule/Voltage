@@ -1,0 +1,57 @@
+<div class="container">    
+    <p id="contact"><h1 class="cap">contact us</h1></p>
+      <div class="contact">
+        <div class="contact-form">
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 order-1 order-md-0">
+                    <div class="caddress">
+                      <div class="see">
+                      <p>Address: <span>2B Yinusa street,</span></p>
+                      <p>ikeja, lagos</p>
+                      <p>Email: <span>admin@volatge.com</span></p>
+                      <p>Phone: 08081520044</p>
+                      <p>website:www.spread.com</p>
+                    </div>
+                </div>
+                
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 order-0 order-md-1">
+              <div class="cform">
+                <div class="ccform">
+                      <form action="{% url 'contact' %}" method="POST">
+                      {% csrf_token %}
+                        <div>
+                          <input type="text" name="full_name" placeholder="Full Name">
+                        </div>
+
+                        <div>
+                          <input type="email" name="email" placeholder="Email">
+                        </div>
+  
+                        <div>
+                          <textarea placeholder="Enter Your text" name="message" cols="30" rows="10"></textarea>
+                        </div>
+                        
+                        <input type="submit" value="Send message">
+                      </form>
+                    </div>
+                  </div>
+                  
+                </div>
+          </div>
+          
+          
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126845.96885321761!2d3.2934884573546537!3d6.
+    529701167762812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b9228fa2a3999%3A0xd7a8324bddbba1f0
+    !2sIkeja!5e0!3m2!1sen!2sng!4v1651749041491!5m2!1sen!2sng" style="border:0;" 
+    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+  </div>
+
+  

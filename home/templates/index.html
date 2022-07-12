@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}  | Home   {% endblock title %}
+
+{% block carousel %} {% include "carousel.html" %}  {% endblock carousel %}
+
+<!-- content -->
+{% block content %}
+    
+         <!-- main content -->
+         <div class="container text-center text-capitalize  mt-5 mb-5 text-warning">
+          <h3 class="mt-4 mb-4 cap">latest product</h3>
+         <div class="row justify-content-center text-danger text-center gy-5">
+          {% if vic %}
+              {% for v in vic %}
+                <div class="col-10 col-sm-6 col-md-4 col-lg-3">
+                  <div class="card">
+                    <img src="{{v.img.url}}" class="card-img-top img">
+                    <div class="card-body">
+                      <h5 class="card-title">Name: {{v.name}}</h5>
+                      <p class="card-text text-truncate">Price: {{v.price}}</p>
+                      <p class="card-text text-truncate">Description: {{v.description}}.</p>
+                      <a href="/details.html" class="btn btn-danger text-white">Add to cart</a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+          {% endif %} 
+         </div>
+       </div>
+
+
+   
+
+       <div class="container text-center text-capitalize  mt-5 mb-5 text-warning">
+         <h3 class="mt-4 mb-4 cap">trending product</h3>
+        <div class="row justify-content-center text-danger text-center gy-5">
+
+          
+          {% if math %}
+              {% for m in math %}
+                  <div class="col-10 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card">
+                      <img src="{{m.img.url}}" class="card-img-top img">
+                      <div class="card-body">
+                        <h5 class="card-title">Name: {{m.name}}</h5>
+                        <p class="card-text text-truncate">Price:{{m.price}}.</p>
+                        <p class="card-text text-truncate">Description: {{m.description}}.</p>
+                        <a href="/details.html" class="btn btn-danger text-white">Add to cart</a>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+          {% endif %}
+         </div>
+       </div>
+     
+<!-- main content done -->
+
+{% endblock content %}
+<!-- content done -->
+
+{% block about %}   {% include "about.html" %}  {% endblock about %}
+
+{% block contact %} {% include "contact.html" %}    {% endblock contact %}
+
+
+
+
+{% block team %}    {% include "team.html" %}   {% endblock team %}
+
+{% block footer %}  {% include "footer.html" %}  {% endblock footer %}

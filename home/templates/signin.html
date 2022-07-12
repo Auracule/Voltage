@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}  |  Signin Page   {% endblock title %}
+
+{% block carousel %}  {% include "carousel.html" %}  {% endblock carousel %}
+
+{% block content %}   
+    
+<!-- main content -->
+<div class="container mb-5">
+    <h3 class="cap">User Signin</h3>
+<div class="row justify-content-center justify-content-md-around justify-content-lg-center text-warning text-center gy-5">
+    <div class="col-10 col-sm-10 col-md-4 col-lg-3 col-xl-3 d-none d-lg-block">
+      <div class="card border-0 bg-transparent">
+        <img src="/img/promise2.jpg" class="card-img-top w-75 mx-auto rounded-circle image">
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+    </div>
+
+    <div class="col-10 col-sm-10 col-md-5 col-lg-5 col-xl-5 pt-5">
+      <div class="profile-form px-lg-3 text-center">
+        <form action="{% url 'signin' %}" method="POST">
+        {% csrf_token %}
+            <div id="emailHelp" class="form-text text-capitalize mb-3 form-text">
+            <small>to fast track your transaction, kindly signin or signup</small></div>
+          <div class="mb-2">
+            <label for="exampleInputText1" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" id="exampleInputText1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-2">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1" aria-describedby="emailHelp">
+          </div>
+          <div id="emailHelp" class="form-text text-capitalize mb-3 form-text">
+            <small>Signin to your account or signin to create one</small></div>
+          <button type="submit" class="btn btn-success w-25 mt-4">SignIn</button>
+        </form>
+        <a href="{% url 'signup' %}" type="submit" class="btn btn-danger w-25 mt-4">Sign-Up</a>
+    </div>
+    </div>
+
+    
+    <div class="col-10 col-sm-10 col-md-4 col-lg-4 col-xl-4 d-none d-lg-block">
+      <div class="card border-0 bg-transparent">
+        <img src="/img/promise2.jpg" class="card-img-top w-75 mx-auto rounded-circle img">
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- main content done -->
+
+{% endblock content %}
+{% block footer %}   {% include "footer.html" %}   {% endblock footer %}   

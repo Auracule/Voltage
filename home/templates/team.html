@@ -1,0 +1,25 @@
+
+
+<div class="team">
+    <div class="container text-center">
+      <h2 class="cap">Our Team</h2>
+      <div class="row justify-content-center">
+        {% if team %}
+            {% for item in team %}
+              <div class="col-10 col-sm-10 col-md-4 col-lg-4 col-xl-4">
+                <div class="card border-0 bg-transparent">
+                  <img src="{{item.img.url}}" class="card-img-top w-75 mx-auto rounded-circle">
+                  <div class="card-body">
+                    <h5 class="card-title text-truncate">Name: {{item.personnel}}</h5>
+                    <p class="card-text">Post: {{item.post}}</p>
+                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        {% endif %}  
+    </div>
+</div>
+
+
+
