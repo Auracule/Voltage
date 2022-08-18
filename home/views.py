@@ -11,6 +11,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
 from django.views.generic import View
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 from . forms import *
 from . models import *
@@ -46,13 +48,12 @@ def contact(request):
 
 def products(request):
     product = Product.objects.all()
-
-    # if product:
-    #     product.objects.exclude(pk=item.id, paid=True)
-    #     rroduct.save()
-        
+    goods = Paginator(product, 4)
+    mygoods = request.GET.get('page')
+    mygoods_good = goods.get_page(mygoods)
+    
     context = {
-        'product':product,
+        'mygoods_good':mygoods_good,
     }
     return render(request, 'products.html',context)
 
@@ -65,8 +66,6 @@ def details(request, id):
     }
     
     return render(request, 'details.html',context)
-
-
 # authentication
 
 def signout(request):
@@ -100,7 +99,7 @@ def signup(request):
         if form.is_valid():
             newuser = form.save()
             # today
-            newprofile = Profile(user = newuser)
+            newprofile = Profile(user= newuser)
             newprofile.first_name = newuser.first_name
             newprofile.last_name = newuser.last_name
             newprofile.email = newuser.email
@@ -174,6 +173,25 @@ def password(request):
     return render(request, 'password.html', context)
 
 
+def search(request):
+    if request.method == 'POST':
+        items = request.POST['search']
+        #Q is a function from django library
+        # for the tag field searched
+        # searched = Q(Q(leather__icontains=items)| (Q(name__icontains=items)) |(Q(name__icontains=items)))
+        searched = Q((Q(name__icontains=items)) |(Q(price__icontains=items)))
+        searched_item = Product.objects.filter(searched)
+
+        context = {
+            'items':items,
+            'searched_item':searched_item,
+        }
+        
+        return render(request, 'search.html', context)
+    else:
+        return render(request, 'search.html')
+
+
 # shopcart
 def shopcart(request):
     if request.method == 'POST':
@@ -225,6 +243,7 @@ def displaycart(request):
     trolley = Shopcart.objects.filter(user__username =request.user.username, paid=False)
     profile = Profile.objects.get(user__username = request.user.username)
 
+
     # initializing
     subtotal = 0
     vat = 0
@@ -243,7 +262,6 @@ def displaycart(request):
         'subtotal':subtotal,
         'vat':vat,
         'total':total,
-        # 'profile':profile,
     }
     
     return render(request, 'displaycart.html', context)
@@ -270,7 +288,6 @@ def increase(request):
 class CheckoutView(View):
     def get(self, request, *args, **kwargs):
         summary = Shopcart.objects.filter(user__username = request.user.username, paid= False)
-        
 
         subtotal = 0
         vat = 0
@@ -291,12 +308,15 @@ class CheckoutView(View):
         return render(request, 'checkout.html', context)
 # checkout using class based view and axios get request done
 
+
+
 def pay(request):
     if request.method == 'POST':
         # collecting data to send out to paystack
         api_key = 'sk_test_43762140e809dbc5ffee4d9c1e84d8c72afd6b9d'
         curl = 'https://api.paystack.co/transaction/initialize'
-        cburl = 'http://54.198.194.99/callback'
+        # cburl = 'http://54.198.194.99/callback'
+        cburl = 'http://127.0.0.1:7000/callback'
         user = User.objects.get(username = request.user.username)
         email = user.email
         total = float(request.POST['total']) * 100
@@ -312,14 +332,16 @@ def pay(request):
             messages.error(request, 'Network busy, refresh and try again')
         else:
             transback = json.loads(r.text)
-            # rdurl = transback['data']['authorization_url']
             rdurl = transback['data']['authorization_url']
             return redirect(rdurl)
         return redirect('displaycart')
 
+
+
 def callback(request):
     profile = Profile.objects.get(user__username = request.user.username)
     basket = Shopcart.objects.filter(user__username = request.user.username, paid=False)
+    # pay = Payment.objects.get(user__username = request.user.username, paid=True)
 
     for item in basket:
         item.paid = True 
@@ -333,6 +355,20 @@ def callback(request):
         'profile':profile,
     }
     return render(request, 'callback.html', context)
+
+
+
+@login_required(login_url='signin')
+def history(request):
+    profile = Profile.objects.get(user__username = request.user.username)
+    basket = Shopcart.objects.filter(user__username = request.user.username, paid=True)
+
+
+    context = {
+        'profile':profile,
+        'basket':basket,
+    }
+    return render(request, 'history.html', context)
 
 
 

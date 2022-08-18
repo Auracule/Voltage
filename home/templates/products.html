@@ -10,8 +10,8 @@
 <div class="container text-center text-capitalize  mt-5 mb-5 text-warning">
     <h3 class="mt-4 mb-4">All Brands</h3>
     <div class="row justify-content-center text-warning text-center gy-5"> 
-        {% if product %}
-            {% for item in product %}
+        {% if mygoods_good %}
+            {% for item in mygoods_good %}
                 <div class="col-10 col-sm-6 col-md-4 col-lg-3">
                     <div class="card">
                     <img src="{{item.img.url}}" class="card-img-top img rounded">
@@ -19,7 +19,11 @@
                         <h5 class="card-title">Product: {{item.name}}</h5>
                         <p class="card-text text-truncate">Price: {{item.price}}</p>
                         <p class="card-text text-truncate">Description: {{item.description}}</p>
-                        <a href="{% url 'details' item.id %}" class="btn btn-warning text-white">Add to cart</a>
+                        {% if item.max_quantity < 1 %}
+                            <p class="bg-warning text-white">Currently out of stock</p>
+                        {% else %}
+                            <a href="{% url 'details' item.id %}" class="btn btn-warning text-white">Add to cart</a>
+                        {% endif %}
                     </div>
                     </div>
                 </div>
@@ -27,6 +31,50 @@
         {% endif %}
     </div>
 </div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">      
+        {% if mygoods_good.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{mygoods_good.previous_page_number}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+            
+        
+        {% for item in mygoods_good.paginator.page_range %}
+            
+            {% if mygoods_good.number == item %}
+                <li class="page-item"><a class="page-link" href="#">{{item}}</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{item}}">{{item}}</a></li>
+            {% endif %}
+                
+        {% endfor %}
+            
+        
+        {% if mygoods_good.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{mygoods_good.next_page_number}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{mygoods_good.paginator.num_pages}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}   
+    </ul>
+  </nav>
 {% endblock content %}
 
 {% block footer %}  {% include "footer.html" %}  {% endblock footer %}

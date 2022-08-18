@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}  | Products   {% endblock title %}
+
+{% block carousel %} {% include "carousel.html" %}  {% endblock carousel %}
+
+{% block content %}
+
+
+{% if items %}
+    
+<div class="container text-center text-capitalize  mt-5 mb-5 text-warning">
+    <h3 class="mt-4 mb-4">You searched for {{items}}</h3>
+    <div class="row justify-content-center text-warning text-center gy-5"> 
+        {% if searched_item %}
+            {% for item in searched_item %}
+                <div class="col-10 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card">
+                    <img src="{{item.img.url}}" class="card-img-top img rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">Product: {{item.name}}</h5>
+                        <p class="card-text text-truncate">Price: {{item.price}}</p>
+                        <p class="card-text text-truncate">Description: {{item.description}}</p>
+                        {% if item.max_quantity < 1 %}
+                            <p class="bg-warning text-white">Currently out of stock</p>
+                        {% else %}
+                            <a href="{% url 'details' item.id %}" class="btn btn-warning text-white">Add to cart</a>
+                        {% endif %}
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+{% else %}
+    <h3 class="mt-4 mb-4">You searched for {{items}} is not found</h3>
+
+{% endif %}
+
+{% endblock content %}
+
+{% block footer %}  {% include "footer.html" %}  {% endblock footer %}

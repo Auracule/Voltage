@@ -9,8 +9,10 @@ def cartcount(request):
     for item in reading:
         cartread += item.quantity
 
-
-    return {'cartread':cartread}
+    context = {
+        'cartread':cartread
+        }
+    return context
 
 
 

@@ -137,8 +137,7 @@ html{
 body{
     /* background: url(/img/43872.jpg); */
     background-size: cover;
-    background-repeat: no-repeat;
-    
+    background-repeat: no-repeat; 
 }
 /* .about{
     background: navy;

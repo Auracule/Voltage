@@ -23,14 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&3jje0#c2*(lu*$6+7zbhp$w3d8kmn2xj%1!=lut_xh#6c14#1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = ['54.198.194.99', '*']
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['54.198.194.99', '*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,6 +127,41 @@ STATICFILES_DIRS =[os.path.join(BASE_DIR, 'home/static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+JAZZMIN_SETTINGS = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "Voltage Admin",
+
+    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "Voltage",
+
+    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_brand": "Voltage",
+
+    # Logo to use for your site, must be present in static files, used for brand on top left
+    # "site_logo": "books/img/logo.png",
+
+    # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
+    # "login_logo": None,
+
+    # Logo to use for login form in dark themes (defaults to login_logo)
+    # "login_logo_dark": None,
+
+    # CSS classes that are applied to the logo above
+    # "site_logo_classes": "img-circle",
+
+    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
+    # "site_icon": None,
+
+    # Welcome text on the login screen
+    "welcome_sign": "Welcome to the Voltage",
+
+    # Copyright on the footer
+    "copyright": "Voltage",
+        
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
