@@ -23,11 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&3jje0#c2*(lu*$6+7zbhp$w3d8kmn2xj%1!=lut_xh#6c14#1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['54.198.194.99', '*']
+ALLOWED_HOSTS = ['54.159.203.72', '*']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -128,6 +128,17 @@ STATICFILES_DIRS =[os.path.join(BASE_DIR, 'home/static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'voltagedb',
+        'USER': 'voltageadmin',
+        'PASSWORD': 'admin1234',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
 
 
 JAZZMIN_SETTINGS = {
