@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-&3jje0#c2*(lu*$6+7zbhp$w3d8kmn2xj%1!=lut_xh#6c14#1
 # DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = ['54.159.203.72', '*']
+ALLOWED_HOSTS = ['54.166.236.170', '*']
 # ALLOWED_HOSTS = []
 
 
@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'voltage.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -122,8 +122,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS =[os.path.join(BASE_DIR, 'home/static')]
+STATIC_ROOT = BASE_DIR/ 'static'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS =[(BASE_DIR/ 'home/static')]
+# STATICFILES_DIRS =[os.path.join(BASE_DIR, 'home/static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
